@@ -1,4 +1,5 @@
 require_relative "poly_tree_node.rb"
+require "byebug"
 
 class KnightPathFinder
     attr_reader :considered_positions, :starting_position
@@ -25,10 +26,10 @@ class KnightPathFinder
     end
 
     def build_move_tree(ending_position)
-        queue = [starting_position]
+        queue = [@starting_position]
         until queue.empty?
             test_position = queue.shift
-            return test_position if test_position = ending_position
+            return test_position if test_position == ending_position
             queue += new_move_positions(test_position)
         end
         nil
@@ -46,7 +47,11 @@ class KnightPathFinder
 
 end
 
-# test = KnightPathFinder.new([0,3])
+test = KnightPathFinder.new([0,3])
 # p KnightPathFinder.valid_moves([0,3])
 # p test.new_move_positions([3,4])
 # p test.considered_positions
+# p test.build_move_tree([7,4])
+p test.build_move_tree([0,8])
+p test.build_move_tree([0,3])
+p test.build_move_tree([2,5])
