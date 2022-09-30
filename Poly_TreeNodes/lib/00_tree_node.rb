@@ -29,9 +29,7 @@ class PolyTreeNode
     end
 
     def dfs(target_value)
-        # debugger
         return self if self.value == target_value
-        # debugger
         children.each do |child|
             result = child.dfs(target_value)
             return result if result != nil
@@ -40,7 +38,13 @@ class PolyTreeNode
     end
 
     def bfs(target_value)
-
+        queue = [self]
+        until queue.empty?
+            test = queue.shift
+            return test if test.value == target_value
+            queue += test.children
+        end
+        nil
     end
 
 end
