@@ -27,7 +27,24 @@ class PolyTreeNode
         raise "Not a child" if !@children.include?(child_node)
         child_node.parent=nil
     end
+
+    def dfs(target_value)
+        # debugger
+        return self if self.value == target_value
+        # debugger
+        children.each do |child|
+            result = child.dfs(target_value)
+            return result if result != nil
+        end
+        nil
+    end
+
+    def bfs(target_value)
+
+    end
+
 end
+
 
 
 n1 = PolyTreeNode.new("root1")
