@@ -1,7 +1,7 @@
 require_relative "poly_tree_node.rb"
 
 class KnightPathFinder
-    attr_reader :considered_positions
+    attr_reader :considered_positions, :starting_position
 
     def self.valid_moves(position)
         row, col = position
@@ -21,10 +21,17 @@ class KnightPathFinder
     def initialize(starting_position = [0,0])
         @root_node = PolyTreeNode.new(starting_position)
         @considered_positions = [starting_position]
+        @starting_position = starting_position
     end
 
-    def build_move_tree
-        #@root_node
+    def build_move_tree(ending_position)
+        queue = [starting_position]
+        until queue.empty?
+            test_position = queue.shift
+            return test_position if test_position = ending_position
+            queue += new_move_positions(test_position)
+        end
+        nil
     end
 
     def new_move_positions(position)
@@ -39,7 +46,7 @@ class KnightPathFinder
 
 end
 
-test = KnightPathFinder.new([0,3])
-p KnightPathFinder.valid_moves([0,3])
-p test.new_move_positions([3,4])
-p test.considered_positions
+# test = KnightPathFinder.new([0,3])
+# p KnightPathFinder.valid_moves([0,3])
+# p test.new_move_positions([3,4])
+# p test.considered_positions
